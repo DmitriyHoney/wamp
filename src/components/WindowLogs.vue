@@ -1,6 +1,7 @@
 <template>
   <log-string
     v-for="(log, idx) in logs"
+    :id="`log_${idx}`"
     :log="log"
     :key="idx"
     :search="search"

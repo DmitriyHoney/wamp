@@ -157,6 +157,6 @@ export class AppClass {
     this.wp.connect();
   }
   handleMessage(res) {
-    console.log(123123123, res);
+    // console.log(123123123, res);
   }
 }

@@ -2,7 +2,7 @@
 import WindowLogs from "./components/WindowLogs.vue";
 import BaseFilterByLevel from "./components/BaseFilterByLevel.vue";
 import { AppClass } from "./core/WampCore";
-import { ref, computed } from "vue";
+import { ref, computed, watch } from "vue";
 
 const app = new AppClass();
 const typeLog = ref([]);
@@ -25,11 +25,27 @@ const logs = computed(() => {
   }
   return res;
 });
+const startPos = ref(0);
+const handleGoToString = () => {
+  if (!resSearch.value) return;
+
+  if (resSearch.value.length === startPos.value) startPos.value = 0;
+  document
+    .getElementById(`log_${resSearch.value[startPos.value]}`)
+    ?.scrollIntoView();
+  startPos.value++;
+};
+
+watch(
+  () => search.value,
+  () => {
+    startPos.value = 0;
+  }
+);
 </script>
 
 <template>
-  <!-- resSearch {{ resSearch }} -->
-  <input type="text" v-model="search" />
+  <input type="text" v-model="search" @keyup.enter="handleGoToString" />
   <base-filter-by-level v-model="typeLog" />
   <window-logs :logs="logs" :resSearch="resSearch" :search="search" />
 </template>

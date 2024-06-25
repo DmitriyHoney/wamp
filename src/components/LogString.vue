@@ -20,7 +20,6 @@ const highlight = (str) => {
   if (!props.isHightlight) return str;
   let search = props.search.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
   var re = new RegExp(search, "g");
-  console.log(111, search.length);
   if (search.length > 0) return str.replace(re, `<mark>$&</mark>`);
   else return str;
 };
